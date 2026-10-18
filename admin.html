@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin – Raja Founder</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<header><b>RAJA FOUNDER · ADMIN</b><a href="index.html">← Back to website</a></header>
+<main>
+
+<section class="card" id="connect">
+  <h2>1. Connect to GitHub</h2>
+  <p class="hint">Paste a GitHub fine-grained token with <b>Contents: Read and write</b> access to your website repository. It is saved only in this browser.</p>
+  <div class="grid">
+    <div><label for="owner">GitHub username</label><input id="owner" value="Marketer-raja"></div>
+    <div><label for="repo">Repository</label><input id="repo" value="raja-founder"></div>
+    <div><label for="branch">Branch</label><input id="branch" value="main"></div>
+    <div><label for="token">Access token</label><input id="token" type="password" autocomplete="off" placeholder="github_pat_…"></div>
+  </div>
+  <div class="row"><button id="btnConnect" type="button">Connect &amp; load founders</button><button id="btnForget" class="sec" type="button">Forget token</button><span id="cstatus"></span></div>
+</section>
+
+<section class="card" id="formCard" hidden>
+  <h2 id="formTitle">2. Add a new founder</h2>
+  <div class="grid">
+    <div><label for="n">Full name *</label><input id="n"></div>
+    <div><label for="co">Company *</label><input id="co"></div>
+    <div><label for="c">Country *</label><input id="c"></div>
+    <div><label for="ind">Industry *</label><input id="ind"></div>
+    <div><label for="yr">Year founded</label><input id="yr" type="number" min="1800" max="2100"></div>
+    <div><label for="role">Role</label><input id="role" placeholder="Founder &amp; CEO"></div>
+    <div><label for="web">Company website</label><input id="web" type="url" placeholder="https://"></div>
+    <div><label for="li">LinkedIn profile</label><input id="li" type="url" placeholder="https://www.linkedin.com/in/…"></div>
+    <div class="full"><label for="bio">Short description</label><textarea id="bio"></textarea></div>
+    <div class="full"><label for="story">Founder story</label><textarea id="story"></textarea></div>
+    <div class="full"><label for="photo">Photo <span id="photoNote">*</span></label><input id="photo" type="file" accept="image/*"><img id="preview" class="preview" alt="Photo preview"></div>
+  </div>
+  <div class="row"><button id="btnSave" type="button">Publish founder</button><button id="btnCancel" class="sec" type="button" hidden>Cancel edit</button><span id="status" role="status"></span></div>
+</section>
+
+<section class="card" id="listCard" hidden>
+  <h2>Current founders (<span id="count">0</span>)</h2>
+  <div id="list"></div>
+</section>
+
+</main>
+<script src="admin.js"></script>
+</body>
+</html>
