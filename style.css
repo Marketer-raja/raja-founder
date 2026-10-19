@@ -126,3 +126,19 @@ a.ff-item:hover .ff-av,a.ff-item:focus-visible .ff-av{outline:2px solid var(--na
 .ff-count{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;margin-left:-10px;background:var(--bg);border:2px solid var(--paper);font-size:11px;font-weight:600;color:var(--muted)}
 .ff-store[hidden]{display:none}
 @media (max-width:760px){.ff{padding:40px 16px}.ff-card{padding:22px 16px 26px}.ff-item{width:calc(50% - 6px)}.ff-pill{white-space:normal;border-radius:14px}}
+
+
+/* Newsletter section */
+.news{background:linear-gradient(135deg,#0b1250,#0a1a8f);color:#fff;padding:64px 24px;text-align:center}
+.news-in{max-width:720px;margin:0 auto}
+.news h2{font-size:clamp(22px,3.4vw,32px);line-height:1.25;margin:0 0 12px;font-weight:700}
+.news p{margin:0 auto 26px;color:#d6dbf5;font-size:15px;max-width:560px}
+.news-form{display:flex;gap:12px;justify-content:center;max-width:560px;margin:0 auto}
+.news-form input{flex:1;min-width:0;font:inherit;font-size:14px;padding:13px 16px;border:2px solid transparent;border-radius:0;background:#fff;color:#1d1f27}
+.news-form input:focus-visible{outline:none;border-color:#8fa0ff}
+.news-form .btn{white-space:nowrap;box-shadow:none}
+.news-form .btn:disabled{opacity:.6;cursor:default}
+.news p.news-msg{margin:14px auto 0;min-height:1.4em;font-size:13.5px}
+.news-msg.ok{color:#9ff0b8}.news-msg.err{color:#ffd1d1}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:600px){.news{padding:48px 20px}.news-form{flex-direction:column}.news-form .btn{width:100%}}
