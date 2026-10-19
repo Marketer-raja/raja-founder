@@ -25,6 +25,7 @@ button:disabled{opacity:.5;cursor:wait}
 @media(max-width:640px){.grid{grid-template-columns:1fr}}
 
 main[hidden],.gate[hidden]{display:none}
+#boot .hint{margin:0}
 header .hr{display:flex;gap:16px;align-items:center}
 header button.sec{padding:6px 14px;font-size:13px}
 .gate{max-width:420px;margin:48px auto;padding:0 16px}
