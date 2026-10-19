@@ -97,7 +97,7 @@ dialog::backdrop{background:rgba(0,0,20,.65)}
 }
 
 /* Scrolling text strip below nav */
-.marquee{background:var(--navy);color:#fff;overflow:hidden;white-space:nowrap;padding:10px 0;border-top:1px solid rgba(255,255,255,.15)}
+.marquee{background:#fff;color:var(--navy);overflow:hidden;white-space:nowrap;padding:10px 0}
 .marquee-track{display:inline-flex;animation:marquee-scroll 60s linear infinite}
 .marquee-track span{padding-right:80px;font-size:14px;font-weight:500}
 .marquee:hover .marquee-track{animation-play-state:paused}
