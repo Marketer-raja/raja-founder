@@ -116,6 +116,19 @@
   </div>
 </section>
 
+<section class="news" id="newsletter">
+  <div class="news-in">
+    <h2>Stories That Inspire. Ideas That Empower.</h2>
+    <p>Get inspiring founder journeys, success secrets, and powerful business lessons delivered straight to your inbox.</p>
+    <form class="news-form" id="news-form" data-endpoint="" novalidate>
+      <label class="sr" for="news-email">Email address</label>
+      <input id="news-email" name="email" type="email" placeholder="Enter your email address" autocomplete="email" required>
+      <button class="btn light" type="submit">Join the Community</button>
+    </form>
+    <p class="news-msg" id="news-msg" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
 <footer id="contact">
   <div class="fgrid">
     <div>
@@ -130,6 +143,24 @@
   <div class="fbot"><span><a href="#">Subscribe</a> | <a href="#home">Go to website</a></span><a href="admin.html" id="adm">Admin</a><span>Copyright © 2026 Raja Founder. All rights reserved.</span></div>
 </footer>
 </div>
+<script>
+/* Newsletter form. Put your form service URL in data-endpoint on the <form> (e.g. a Formspree or Buttondown URL). */
+(function(){
+  var f=document.getElementById("news-form"),m=document.getElementById("news-msg");if(!f)return;
+  f.addEventListener("submit",function(e){
+    e.preventDefault();m.className="news-msg";
+    var email=f.email.value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){m.textContent="Please enter a valid email address.";m.className="news-msg err";f.email.focus();return}
+    var url=f.getAttribute("data-endpoint");
+    if(!url){m.textContent="Subscriptions are not connected yet. Please check back soon.";m.className="news-msg err";return}
+    var b=f.querySelector("button");b.disabled=true;
+    fetch(url,{method:"POST",body:new FormData(f),headers:{Accept:"application/json"}})
+      .then(function(r){if(!r.ok)throw 0;m.textContent="Thank you for joining the community!";m.className="news-msg ok";f.reset()})
+      .catch(function(){m.textContent="Something went wrong. Please try again.";m.className="news-msg err"})
+      .then(function(){b.disabled=false});
+  });
+})();
+</script>
 <script src="featured.js"></script>
 <script src="script.js"></script>
 </body>
