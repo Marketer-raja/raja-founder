@@ -195,7 +195,7 @@
 /* Hero background slideshow. Slide 0 is the original hero photo; the others are hero-1/2/3.jpg.
    Change EVERY to set how often the photo changes (in milliseconds: 60000 = 1 minute). */
 (function(){
-  var EVERY=60000, FADE=1300;
+  var EVERY=5000, FADE=1300;
   var slides=[null].concat([].slice.call(document.querySelectorAll(".hero-slides .hs")));
   if(slides.length<2)return;
   ["hero-1.jpg","hero-2.jpg","hero-3.jpg"].forEach(function(s){new Image().src=s});
