@@ -6,7 +6,9 @@
 <title>Raja Founder – Founders Around the World</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="popup.css?v=2">
+<link rel="stylesheet" href="popup.css?v=3">
+<script src="config.js"></script>
+<script src="supa.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -96,7 +98,7 @@
     <p>See where founders are building. Choose a region to open its full list of profiles.</p>
     <a class="btn" href="#regions">Explore regions</a>
   </div>
-  <div class="map">
+  <div class="map" id="region-map">
     <div><span>Asia</span><b>312</b></div>
     <div><span>Europe</span><b>186</b></div>
     <div><span>North America</span><b>141</b></div>
@@ -175,20 +177,27 @@
 </footer>
 </div>
 <script>
-/* Newsletter form. Put your form service URL in data-endpoint on the <form> (e.g. a Formspree or Buttondown URL). */
+/* Newsletter form. Saves to Supabase (newsletter_subscribers). data-endpoint is only a fallback for when Supabase is not configured. */
 (function(){
   var f=document.getElementById("news-form"),m=document.getElementById("news-msg");if(!f)return;
   f.addEventListener("submit",function(e){
     e.preventDefault();m.className="news-msg";
     var email=f.email.value.trim();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){m.textContent="Please enter a valid email address.";m.className="news-msg err";f.email.focus();return}
-    var url=f.getAttribute("data-endpoint");
+    var b=f.querySelector("button"),url=f.getAttribute("data-endpoint");
+    var ok=function(){m.textContent="Thank you for joining the community!";m.className="news-msg ok";f.reset()};
+    var bad=function(){m.textContent="Something went wrong. Please try again.";m.className="news-msg err"};
+    if(window.RFDB&&RFDB.ready()){
+      b.disabled=true;
+      RFDB.insert("newsletter_subscribers",{email:email})
+        .then(function(st){if(st===409){m.textContent="You are already subscribed. Thank you!";m.className="news-msg ok";f.reset()}else if(st>=200&&st<300)ok();else throw 0})
+        .catch(bad).then(function(){b.disabled=false});
+      return;
+    }
     if(!url){m.textContent="Subscriptions are not connected yet. Please check back soon.";m.className="news-msg err";return}
-    var b=f.querySelector("button");b.disabled=true;
+    b.disabled=true;
     fetch(url,{method:"POST",body:new FormData(f),headers:{Accept:"application/json"}})
-      .then(function(r){if(!r.ok)throw 0;m.textContent="Thank you for joining the community!";m.className="news-msg ok";f.reset()})
-      .catch(function(){m.textContent="Something went wrong. Please try again.";m.className="news-msg err"})
-      .then(function(){b.disabled=false});
+      .then(function(r){if(!r.ok)throw 0;ok()}).catch(bad).then(function(){b.disabled=false});
   });
 })();
 </script>
@@ -212,8 +221,20 @@
   },EVERY);
 })();
 </script>
+<script>
+/* Founders by region: numbers come from the admin panel (Supabase table regions).
+   The HTML above stays as the fallback if Supabase is not configured or the table is empty. */
+(function(){
+  var box=document.getElementById("region-map");if(!box||!window.RFDB||!RFDB.ready())return;
+  RFDB.select("regions","select=name,founder_count&order=sort_order.asc").then(function(rows){
+    if(!rows||!rows.length)return;box.innerHTML="";
+    rows.forEach(function(r){var d=document.createElement("div"),s=document.createElement("span"),b=document.createElement("b");
+      s.textContent=r.name;b.textContent=Number(r.founder_count).toLocaleString("en-US");d.appendChild(s);d.appendChild(b);box.appendChild(d)});
+  }).catch(function(){});
+})();
+</script>
 <script src="featured.js"></script>
 <script src="script.js"></script>
-<script src="popup.js?v=2"></script>
+<script src="popup.js?v=3"></script>
 </body>
 </html>
