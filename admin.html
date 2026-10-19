@@ -10,6 +10,14 @@
 </head>
 <body>
 <header><b>RAJA FOUNDER · ADMIN</b><span class="hr"><button id="logout" class="sec" type="button" hidden>Log out</button><a href="index.html">← Back to website</a></span></header>
+<section class="gate" id="boot">
+  <div class="card">
+    <h2>Admin</h2>
+    <p class="hint" id="bootmsg">Loading…</p>
+    <noscript><p class="err">JavaScript is turned off in this browser. The admin panel needs JavaScript.</p></noscript>
+  </div>
+</section>
+
 <section class="gate" id="login" hidden>
   <div class="card">
     <h2>Admin login</h2>
@@ -77,6 +85,13 @@
 </section>
 
 </main>
+<script>
+setTimeout(function(){
+  if(window.__authOk)return;
+  var m=document.getElementById("bootmsg");
+  if(m){m.className="err";m.textContent="The login script did not start. Make sure auth.js is uploaded to the same folder as admin.html, that the var AUTH= line in it was pasted exactly as generated, and then hard-refresh with Ctrl+F5.";}
+},2500);
+</script>
 <script src="auth.js"></script>
 </body>
 </html>
