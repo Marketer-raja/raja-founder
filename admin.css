@@ -34,3 +34,34 @@ header button.sec{padding:6px 14px;font-size:13px}
 .gate .row{margin-top:18px}
 #lmsg,#smsg{font-size:13px}
 #scode{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all}
+
+/* ---------- tabs & CMS panes ---------- */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:2px solid var(--line)}
+.tab{background:transparent;color:var(--muted);border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:10px 16px}
+.tab.on{color:var(--navy);border-bottom-color:var(--navy)}
+.pane{display:grid;gap:20px}.pane[hidden]{display:none}
+.chk{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--text);margin:0 0 14px}.chk input{width:auto}
+select{width:100%;padding:10px;border:1px solid var(--line);font:inherit;font-size:14px;background:#fff}
+.btnlink{color:var(--navy);font-weight:600;font-size:14px}
+.row.tight{margin-top:0;margin-bottom:12px}
+.srch{margin-bottom:8px}
+.tot{align-self:end;margin:0 0 10px}
+.record{border-top:1px solid var(--line);padding:12px 0;display:grid;gap:4px}
+.record .meta{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:14px}
+.record .meta b{font-weight:700}.record .when{color:var(--muted);font-size:12px;margin-left:auto}
+.record p{margin:4px 0 0;font-size:14px;white-space:pre-wrap;word-break:break-word}
+.record .act{display:flex;gap:8px;margin-top:6px}
+.record button,.erow button{padding:6px 12px;font-size:13px}
+.erow{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;border-top:1px solid var(--line);padding:12px 0}
+.erow .fields{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.erow.reg{grid-template-columns:1fr 160px auto}
+.erow .btns{display:flex;gap:6px;flex-wrap:wrap}
+.av{width:56px;height:56px;border-radius:50%;object-fit:cover;background:#dfe3fa;display:block}
+.filebtn{display:inline-block;padding:10px 18px;border:1px solid var(--navy);color:var(--navy);font-weight:600;cursor:pointer;background:#fff}
+.filebtn.sm{padding:5px 10px;font-size:12px}
+.thumbs{display:flex;flex-wrap:wrap;gap:10px}
+.thumb{position:relative}.thumb .av{width:52px;height:52px}
+.thumb button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;padding:0;border-radius:50%;background:#b00020;font-size:13px;line-height:1}
+.savebar{position:sticky;bottom:0;background:var(--bg);padding:12px 0;margin-top:0}
+.empty{color:var(--muted);font-size:14px;padding:8px 0}
+@media(max-width:720px){.erow{grid-template-columns:56px 1fr}.erow .btns{grid-column:1/-1}.erow .fields{grid-template-columns:1fr 1fr}.erow.reg{grid-template-columns:1fr}}
