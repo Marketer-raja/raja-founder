@@ -18,6 +18,7 @@
 
 
 <header class="hero" id="home">
+  <div class="hero-slides" aria-hidden="true"><div class="hs hs1"></div><div class="hs hs2"></div><div class="hs hs3"></div></div>
   <div>
     <h1>Meet the founders<br>building the world</h1>
     <p>Raja Founder publishes the stories, journeys and details of founders from every country.</p>
@@ -188,6 +189,26 @@
       .catch(function(){m.textContent="Something went wrong. Please try again.";m.className="news-msg err"})
       .then(function(){b.disabled=false});
   });
+})();
+</script>
+<script>
+/* Hero background slideshow. Slide 0 is the original hero photo; the others are hero-1/2/3.jpg.
+   Change EVERY to set how often the photo changes (in milliseconds: 60000 = 1 minute). */
+(function(){
+  var EVERY=60000, FADE=1300;
+  var slides=[null].concat([].slice.call(document.querySelectorAll(".hero-slides .hs")));
+  if(slides.length<2)return;
+  ["hero-1.jpg","hero-2.jpg","hero-3.jpg"].forEach(function(s){new Image().src=s});
+  var cur=0;
+  setInterval(function(){
+    var next=(cur+1)%slides.length,prev=slides[cur],nx=slides[next];
+    if(nx){nx.style.zIndex=2;nx.classList.add("on")}
+    setTimeout(function(){
+      if(prev)prev.classList.remove("on");
+      if(nx)nx.style.zIndex=1;
+    },FADE);
+    cur=next;
+  },EVERY);
 })();
 </script>
 <script src="featured.js"></script>
