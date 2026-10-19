@@ -92,6 +92,37 @@ dialog::backdrop{background:rgba(0,0,20,.65)}
 @media (max-width:1200px){
   section.row{padding:56px 80px}
 }
+
+/* Scrolling text strip below nav */
+.marquee{
+  background:var(--navy);      /* same colour as the nav; change if you like */
+  color:#fff;                  /* white text */
+  overflow:hidden;
+  white-space:nowrap;
+  padding:10px 0;
+  border-top:1px solid rgba(255,255,255,.15);
+}
+.marquee-track{
+  display:inline-flex;
+  animation:marquee-scroll 60s linear infinite;
+}
+.marquee-track span{
+  padding-right:80px;          /* gap between the two copies */
+  font-size:14px;
+  font-weight:500;
+}
+.marquee:hover .marquee-track{animation-play-state:paused;}  /* pause on hover */
+
+@keyframes marquee-scroll{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+
+/* Respect users who turn off animations */
+@media (prefers-reduced-motion:reduce){
+  .marquee-track{animation:none;}
+}
+
 @media (max-width:900px){
   section.row{padding:40px 24px}
 }
