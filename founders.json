@@ -82,5 +82,19 @@
     "photo": "photos/f1792925225920-1792925225920.jpg",
     "web": "https://www.oyorooms.com/",
     "li": "https://www.linkedin.com/in/riteshagar/"
+  },
+  {
+    "id": "f1792925744247",
+    "n": "Sachin Bansal",
+    "co": "Flipkart",
+    "c": "India",
+    "ind": "E-commerce",
+    "yr": 2007,
+    "role": "Co-founder",
+    "bio": "Co-founder of Flipkart, which he started in 2007 with Binny Bansal from a small apartment in Bangalore. Flipkart grew into one of India's leading e-commerce platforms.",
+    "story": "Two Founders, One Apartment, One E-commerce Giant\n\nTwo young entrepreneurs set out to build an online store for India, starting from a small Bangalore apartment.\n\nSachin Bansal and Binny Bansal co-founded Flipkart in 2007 and grew it into one of the country's leading e-commerce platforms, one that now employs over 35,000 people.\n\nKey milestones:\n- 2007: Flipkart founded in Bangalore\n- Valued at over $15B (per source)\n- 35,000+ employees\n- 2016: TIME 100 recognition\n\nTakeaway: Start small, but build for scale. A spare apartment can host a national brand.",
+    "photo": "photos/f1792925744247-1792925744247.jpg",
+    "web": "https://www.flipkart.com/",
+    "li": "https://www.linkedin.com/in/sachinbansal/"
   }
 ]
