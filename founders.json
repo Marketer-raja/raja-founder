@@ -138,5 +138,19 @@
     "photo": "photos/f1792928545205-1792928545205.jpg",
     "web": "https://www.hopper.com",
     "li": "https://www.linkedin.com/in/fredlalonde/"
+  },
+  {
+    "id": "f1792929263994",
+    "n": "Alex Bouaziz",
+    "co": "Deel",
+    "c": "San Francisco, California",
+    "ind": "Fintech / HR & Payroll Tech",
+    "yr": 2019,
+    "role": "Co-founder & CEO",
+    "bio": "Co-founder and CEO of Deel, the platform for contracts, payments, employer of record and payroll for companies hiring across borders. He built it with Shuo Wang after a ten-day pivot before Y Combinator demo day in 2019.",
+    "story": "The Ten-Day Pivot Behind a $1B Payroll Platform\n\nPaying people across borders meant slow transfers, legal forms and shifting tax rules; Alex Bouaziz built one platform to handle it all.\n\nDeel began as an escrow tool for freelancers, and nobody cared: contractors don't choose how they get paid, their clients do. A Y Combinator batchmate used it for contracts and international payments instead. Ten days before demo day in March 2019, Bouaziz and co-founder Shuo Wang rebuilt around contracts.\n\nKey milestones:\n- Mar 2019: 290 contractors, $5,000/month at demo day\n- Jun 2025: $1B revenue run rate (company-stated)\n- Oct 2025: $300M raised at a $17.3B valuation\n\nTakeaway: Build for the side of the transaction that holds the budget, then listen to who uses it sideways.",
+    "photo": "photos/f1792929263994-1792929263994.jpg",
+    "web": "https://www.deel.com",
+    "li": "https://www.linkedin.com/in/alexbouaziz/"
   }
 ]
