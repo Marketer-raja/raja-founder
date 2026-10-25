@@ -180,5 +180,19 @@
     "photo": "photos/f1792932346606-1792932346606.jpg",
     "web": "https://www.flaptrip.app",
     "li": "https://www.linkedin.com/in/anvershinina"
+  },
+  {
+    "id": "f1792932509795",
+    "n": "Brian Chesky",
+    "co": "Airbnb",
+    "c": "USA",
+    "ind": "Travel Tech / Marketplace",
+    "yr": 2007,
+    "role": "Co-founder & CEO",
+    "bio": "Co-founder and CEO of Airbnb, the marketplace where people rent out homes and spare rooms to travellers. It began in 2007 as three airbeds in a San Francisco apartment and listed on Nasdaq in December 2020.",
+    "story": "Three Airbeds, Three Launches, One Global Marketplace\n\nWhen a design conference sold out every San Francisco hotel, Brian Chesky and Joe Gebbia turned three airbeds into a place to stay.\n\nPaying guests came within a week, then a year of nothing: three launches, credit-card debt, election-themed cereal, and investors who said no or went silent. Y Combinator in 2009 changed that. Airbed & Breakfast became Airbnb and went public in December 2020.\n\nKey milestones:\n- Oct 2007: First paying guests\n- Mar 2009: Renamed Airbnb\n- Dec 2020: Nasdaq listing\n- 2025: $12.2B in revenue\n\nTakeaway: A fast first sale isn't a business. Persistence through a year of no is.",
+    "photo": "photos/f1792932509795-1792932509795.jpg",
+    "web": "https://www.airbnb.com",
+    "li": "https://www.linkedin.com/in/brianchesky/"
   }
 ]
