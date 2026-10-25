@@ -68,5 +68,19 @@
     "photo": "photos/f1792321621466-1792321621466.jpg",
     "web": "https://www.marketerraja.com/",
     "li": ""
+  },
+  {
+    "id": "f1792922929097",
+    "n": "Bhavin Turakhia",
+    "co": "Zeta",
+    "c": "India",
+    "ind": "Fintech / Banking Technology",
+    "yr": 2015,
+    "role": "Co-founder & CEO",
+    "bio": "Senior entrepreneur who co-founder with his brother, then launched Zeta in 2015 to give banks modern, cloud-native infrastructure. Zeta became a unicorn after a $250M SoftBank-led round in 2021.",
+    "story": "From Domain Names to Banking Backbones: Bhavin Turakhia's Second Act\n\nBanks ran on legacy systems that were costly and slow to change, so Bhavin Turakhia built them a modern, cloud-native alternative.\n\nTurakhia's story began with Directi, the tech group he built with his brother Divyank. It spawned internet-infrastructure brands like BigRock, ResellerClub and LogicBoxes, and the group later became the subject of a reported $900 million transaction. He kept building, with ventures including Flock, Radix, Ringo and CodeChef.\n\nIn 2015, he pivoted into a tougher arena. With co-founder Ramki Gaddipati, he launched Zeta to supply banks with infrastructure for card processing, core banking and more, packaged as the Omni Stack. The challenge: incumbents like Fiserv, FIS and Temenos are deeply entrenched, and banks demand reliability, security and compliance. Sales cycles are long.\n\nKey milestones:\n- 2015: Zeta founded\n- 2021: $250M raised from SoftBank Vision Fund 2\n- ~$1.45B valuation, making Zeta a unicorn\n- 2026: Turakhia still leads as CEO\n\nTakeaway: Turakhia carried one skill, building infrastructure other businesses depend on, from domain names into banking. Sell the plumbing and pick the industry where the plumbing is oldest. The trade-off is patience: in high-trust markets, winning customers takes years, not quarters.",
+    "photo": "photos/f1792922929097-1792922929097.jpg",
+    "web": "https://www.zeta.tech/",
+    "li": "https://www.linkedin.com/in/bhavin79"
   }
 ]
