@@ -166,5 +166,19 @@
     "photo": "photos/f1792931799286-1792931799286.jpg",
     "web": "https://www.amyporterfield.com",
     "li": "https://www.linkedin.com/in/amyporterfield/"
+  },
+  {
+    "id": "f1792932346606",
+    "n": "Ana Vershinina",
+    "co": "FlapTrip",
+    "c": "Serbia",
+    "ind": "Travel Tech",
+    "yr": 2025,
+    "role": "Co-founder",
+    "bio": "Co-founder of FlapTrip, an AI travel planner that turns your preferences into a day-by-day itinerary with real places and mapped routes in about 60 seconds. She built it on nights and weekends alongside a full-time job.",
+    "story": "Eleven Months of Nights and Weekends to Three Paying Users\n\nPlanning a 21-day Germany road trip took Ana Vershinina two months of evenings; she built an app to do it in 60 seconds.\n\nWith two co-founders and full-time jobs, she built FlapTrip after hours. Six months of planned work became eleven, and burnout hit three months before launch. Eleven days after the App Store release in March 2026, she had 700 installs and three PRO subscribers, mostly friends and family, and she publicly shared what went wrong.\n\nKey milestones:\n- 26 Mar 2026: App Store launch (Android followed 31 Mar)\n- 1,000+ on the waitlist, 60,000+ destinations covered\n- 11 days post-launch: 700 installs, 3 PRO subscribers\n\nTakeaway: Early installs from friends measure goodwill, not demand. Track everything from day one.",
+    "photo": "photos/f1792932346606-1792932346606.jpg",
+    "web": "https://www.flaptrip.app",
+    "li": "https://www.linkedin.com/in/anvershinina"
   }
 ]
