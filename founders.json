@@ -124,5 +124,19 @@
     "photo": "photos/f1792927840037-1792927840037.jpg",
     "web": "https://mamaearth.in/",
     "li": "https://www.linkedin.com/in/ghazal-alagh-9755a0128/"
+  },
+  {
+    "id": "f1792928545205",
+    "n": "Frederic Lalonde",
+    "co": "Hopper",
+    "c": "Canada",
+    "ind": "Travel Tech",
+    "yr": 2007,
+    "role": "Co-founder & CEO",
+    "bio": "Co-founder and CEO of Hopper, the Montreal-based travel app that predicts and books flights and hotels at the best prices. He pivoted it from a blog aggregator into a mobile-first business with $1B+ in sales.",
+    "story": "The Pivot That Turned a Blog Aggregator into a Travel Giant\n\nTravelers never knew when to book; Frederic Lalonde built an app that predicts the best price.\n\nHopper began in 2007 aggregating travel blogs, but growth stalled despite funding. Its real asset was data. After airfare research went viral in 2014, traffic jumped 100x, and Lalonde cut his 15-person team nearly in half and relaunched as a mobile-only app in 2015.\n\nKey milestones:\n- 2007: Hopper founded in Montreal\n- 35M+ app installs\n- $1B+ in sales\n- $235M raised\n\nTakeaway: Your stalled product may be hiding your real one. Mine the data it leaves behind.",
+    "photo": "photos/f1792928545205-1792928545205.jpg",
+    "web": "https://www.hopper.com",
+    "li": "https://www.linkedin.com/in/fredlalonde/"
   }
 ]
