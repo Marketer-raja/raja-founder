@@ -320,5 +320,19 @@
     "photo": "photos/f1792938844877-1792938844877.jpg",
     "web": "https://www.missmalini.com",
     "li": "https://www.linkedin.com/in/maliniagarwal/"
+  },
+  {
+    "id": "f1792939298466",
+    "n": "Trishneet Arora",
+    "co": "TAC Security Solutions",
+    "c": "India",
+    "ind": "Cybersecurity",
+    "yr": 2013,
+    "role": "Founder & CEO",
+    "bio": "Ethical hacker and founder of TAC Security Solutions, a company focused on preventing and investigating cybercrime. He learned hacking as a teenager after leaving school, wrote The Hacking Era, and has worked with Indian police on cybercrime cases.",
+    "story": "From School Dropout to Cybersecurity Founder\n\nCybercrime was growing faster than the people trained to stop it; Trishneet Arora taught himself to fight back.\n\nHe left school as a teenager and taught himself ethical hacking, starting with small jobs like fixing computers and clearing software issues. He went on to found TAC Security Solutions, write The Hacking Era, and help Indian police on cybercrime cases. Punjab Police invited him to train officers on investigations and forensics.\n\nKey milestones:\n- Self-taught ethical hacker as a teenager\n- Author of The Hacking Era\n- Trained Punjab Police on cybercrime investigation\n- Clients include Bharti Airtel and NPCI (per source)\n\nTakeaway: Start small and be useful. Reputation from small jobs compounds into trust from big clients.",
+    "photo": "photos/f1792939298466-1792939298466.jpg",
+    "web": "https://tacsecurity.com/",
+    "li": "https://www.linkedin.com/in/trishneetarora/"
   }
 ]
