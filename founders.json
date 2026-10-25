@@ -236,5 +236,19 @@
     "photo": "photos/f1792933276738-1792933276738.jpg",
     "web": "https://www.olacabs.com",
     "li": "https://www.linkedin.com/in/bhavishaggarwal/"
+  },
+  {
+    "id": "f1792933439002",
+    "n": "Vijay Shekhar Sharma",
+    "co": "Paytm (One97 Communications)",
+    "c": "India",
+    "ind": "Fintech / Digital Payments",
+    "yr": 2010,
+    "role": "Founder & CEO",
+    "bio": "Founder of Paytm, the Indian digital payments platform he launched in August 2010. It is best known for its mobile wallet, QR-code payments and bill payments, and is part of the One97 group.",
+    "story": "From Aligarh to India's Digital Wallet\n\nPaying for things in India meant cash and queues; Vijay Shekhar Sharma put a wallet on the phone.\n\nA native of Aligarh and a Delhi College of Engineering graduate, he worked on several projects and startups before committing to entrepreneurship. He founded Paytm in August 2010 under One97, offering mobile-wallet payments, QR codes and simple bill payments that made it a household name in India.\n\nKey milestones:\n- Aug 2010: Paytm founded\n- Mobile wallet, QR payments and bill pay at scale\n- Expanded into debit cards, a payment gateway and merchant point-of-sale\n\nTakeaway: Make the hard thing, paying, as easy as a tap, and adoption follows.",
+    "photo": "photos/f1792933439002-1792933439002.jpg",
+    "web": "https://paytm.com",
+    "li": "https://www.linkedin.com/in/vijayshekhar/"
   }
 ]
