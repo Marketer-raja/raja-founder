@@ -2,7 +2,7 @@
    (Supabase table popup_settings). Messages are saved to popup_submissions.
    Add ?popup=preview to the site address to force it open (used by the admin Preview button). */
 (function () {
-  if (!window.RFDB || !RFDB.ready()) return;
+  if (!window.RFDB) return;
   var KEY = "rf_popup_seen", preview = /[?&]popup=preview/.test(location.search);
 
   function seenRecently(days) {
@@ -68,9 +68,38 @@
     requestAnimationFrame(function () { ov.classList.add("open"); setTimeout(function () { name.focus(); }, 380); });
   }
 
-  RFDB.select("popup_settings", "select=*&id=eq.1").then(function (rows) {
-    var s = rows && rows[0];
-    if (!s || (!s.enabled && !preview) || seenRecently(s.repeat_days)) return;
-    setTimeout(function () { build(s); }, preview ? 300 : Math.max(0, s.delay_seconds) * 1000);
-  }).catch(function () { /* stay silent: the site works without the pop-up */ });
+  /* ---- settings: from the admin panel, with safe defaults if Supabase is unreachable ---- */
+  var DEFAULTS = { enabled: true, brand: "RAJA FOUNDER", title: "Share your founder story",
+    subtitle: "Know a founder who deserves to be featured? Tell us and we will get back to you.",
+    name_label: "Your name", email_label: "Email address", message_label: "Your message", button_text: "Send",
+    success_text: "Thank you! We will be in touch soon.", footer_text: "We read every message.", delay_seconds: 4 };
+  var MAX_DELAY = 5;      /* the pop-up always appears within 5 seconds of arriving */
+  var opened = false, settingsP = null;
+  function getSettings() {
+    if (!settingsP) settingsP = RFDB.select("popup_settings", "select=*&id=eq.1")
+      .then(function (rows) { var s = rows && rows[0]; if (!s) return DEFAULTS; for (var k in DEFAULTS) if (s[k] == null) s[k] = DEFAULTS[k]; return s; })
+      .catch(function () { return DEFAULTS; });
+    return settingsP;
+  }
+  function openPopup() {
+    if (opened || document.querySelector(".fp-overlay")) return;
+    opened = true;
+    getSettings().then(function (s) { build(s); setTimeout(function () { opened = false; }, 500); });
+  }
+  window.RFPopup = { open: openPopup };
+
+  /* any link/button with data-popup or class "js-write" (e.g. the footer "Write to us") opens it */
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest && e.target.closest("[data-popup],.js-write");
+    if (t) { e.preventDefault(); openPopup(); }
+  });
+
+  /* automatic pop-up on every visit (set window.RF_POPUP_AUTO = false on a page to skip it) */
+  if (window.RF_POPUP_AUTO !== false) {
+    getSettings().then(function (s) {
+      if (!s.enabled && !preview) return;
+      var d = preview ? 0.3 : Math.min(MAX_DELAY, Math.max(0, +s.delay_seconds || 0));
+      setTimeout(openPopup, d * 1000);
+    });
+  }
 })();
