@@ -4,18 +4,24 @@ F.forEach(function(f){if(f.tile!=null&&!f.photo)f.photo=T[f.tile].src});
 var $=function(i){return document.getElementById(i)};
 function opts(sel,key){while(sel.options.length>1)sel.remove(1);F.map(function(f){return f[key]}).filter(function(v,i,a){return a.indexOf(v)===i}).sort().forEach(function(v){var o=document.createElement("option");o.value=v;o.textContent=v;sel.appendChild(o)})}
 function fill(){opts($("fc"),"c");opts($("fi"),"ind")}fill();
-function render(){
+var PAGE=10,shown=PAGE;
+function render(reset){
+  if(reset!==false)shown=PAGE;
   var q=$("q").value.trim().toLowerCase(),c=$("fc").value,n=$("fi").value,box=$("cards");
   var list=F.map(function(f,i){return i}).filter(function(i){var f=F[i];
     return (!c||f.c===c)&&(!n||f.ind===n)&&(!q||(f.n+" "+f.co+" "+f.c+" "+f.ind).toLowerCase().indexOf(q)>-1)});
   box.innerHTML="";
-  list.forEach(function(i){var f=F[i],b=document.createElement("button");b.className="card";b.type="button";
+  list.slice(0,shown).forEach(function(i){var f=F[i],b=document.createElement("button");b.className="card";b.type="button";
     b.innerHTML='<img alt=""><div class="ci"><b></b><span></span><span></span></div>';
     b.querySelector("img").src=f.photo;b.querySelector("b").textContent=f.n;
     var sp=b.querySelectorAll("span");sp[0].textContent=f.co;sp[1].textContent=f.c+" · "+f.ind;
     b.addEventListener("click",function(){openP(i)});box.appendChild(b)});
   if(!list.length){var e=document.createElement("div");e.className="empty";e.textContent="No founders match your search. Clear the filters or try a different name.";box.appendChild(e)}
-  $("cnt").textContent=list.length+" of "+F.length+" founders shown";
+  var mw=$("more-wrap");mw.innerHTML="";
+  if(list.length>shown){var mb=document.createElement("button");mb.type="button";mb.className="more-btn";
+    mb.innerHTML='Read more <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+    mb.addEventListener("click",function(){shown+=PAGE;render(false)});mw.appendChild(mb);mw.hidden=false}else mw.hidden=true;
+  $("cnt").textContent=Math.min(shown,list.length)+" of "+list.length+" founders shown";
 }
 function openP(i){var f=F[i];$("pi").src=f.photo;$("pi").alt=f.n;$("pn").textContent=f.n;$("pr").textContent=f.role+", "+f.co;
   $("pd").innerHTML="";[["Country",f.c],["Industry",f.ind],["Founded",f.yr]].forEach(function(r){var a=document.createElement("dt"),b=document.createElement("dd");a.textContent=r[0];b.textContent=r[1];$("pd").appendChild(a);$("pd").appendChild(b)});
