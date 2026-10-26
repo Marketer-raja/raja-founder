@@ -222,18 +222,6 @@
   },EVERY);
 })();
 </script>
-<script>
-/* Founders by region: numbers come from the admin panel (Supabase table regions).
-   The HTML above stays as the fallback if Supabase is not configured or the table is empty. */
-(function(){
-  var box=document.getElementById("region-map");if(!box||!window.RFDB||!RFDB.ready())return;
-  RFDB.select("regions","select=name,founder_count&order=sort_order.asc").then(function(rows){
-    if(!rows||!rows.length)return;box.innerHTML="";
-    rows.forEach(function(r){var d=document.createElement("div"),s=document.createElement("span"),b=document.createElement("b");
-      s.textContent=r.name;b.textContent=Number(r.founder_count).toLocaleString("en-US");d.appendChild(s);d.appendChild(b);box.appendChild(d)});
-  }).catch(function(){});
-})();
-</script>
 <script src="featured.js"></script>
 <script src="script.js"></script>
 <script src="popup.js?v=4"></script>
