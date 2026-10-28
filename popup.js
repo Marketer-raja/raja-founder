@@ -33,8 +33,10 @@
     box.appendChild(close); box.appendChild(head); box.appendChild(form);
     if (s.footer_text) box.appendChild(el("p", "fp-foot", s.footer_text));
     ov.appendChild(box); document.body.appendChild(ov);
+    (window.dataLayer = window.dataLayer || []).push({ event: "popup_open" });
 
     function shut() {
+      (window.dataLayer = window.dataLayer || []).push({ event: "popup_close" });
       ov.classList.remove("open"); markSeen(); document.removeEventListener("keydown", key);
       setTimeout(function () { ov.remove(); }, 350);
       if (last && last.focus) try { last.focus(); } catch (e) {}
@@ -61,7 +63,7 @@
       if (hpi.value) { done(); return; } /* bots fill the hidden field */
       btn.disabled = true; note.textContent = "Sending…";
       RFDB.insert("popup_submissions", { name: n, email: em, message: msg.value.trim() })
-        .then(function (st) { if (st >= 200 && st < 300) done(); else throw 0; })
+        .then(function (st) { if (st >= 200 && st < 300) { (window.dataLayer = window.dataLayer || []).push({ event: "popup_submit", form_name: "founder_popup" }); done(); } else throw 0; })
         .catch(function () { note.textContent = "Something went wrong. Please try again."; note.className = "fp-msg err"; btn.disabled = false; });
     });
 
