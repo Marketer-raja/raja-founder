@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KWVLJZBF');</script>
+<!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Raja Founder – Founders Around the World</title>
@@ -11,6 +18,10 @@
 <script src="supa.js"></script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWVLJZBF"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div class="wrap">
 <nav>
   <span class="brand">RAJA FOUNDER</span>
@@ -190,7 +201,7 @@
     var email=f.email.value.trim();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){m.textContent="Please enter a valid email address.";m.className="news-msg err";f.email.focus();return}
     var b=f.querySelector("button"),url=f.getAttribute("data-endpoint");
-    var ok=function(){m.textContent="Thank you for joining the community!";m.className="news-msg ok";f.reset()};
+    var ok=function(){(window.dataLayer=window.dataLayer||[]).push({event:"newsletter_signup",form_name:"newsletter"});m.textContent="Thank you for joining the community!";m.className="news-msg ok";f.reset()};
     var bad=function(){m.textContent="Something went wrong. Please try again.";m.className="news-msg err"};
     if(window.RFDB&&RFDB.ready()){
       b.disabled=true;
@@ -227,12 +238,12 @@
 })();
 </script>
 <script src="featured.js?v=5"></script>
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script>
 <script>
 /* History button: shows next to LinkedIn for founders that have a story page.
    To add another founder: add  "Founder Name":"page-name.html"  to this list. */
 (function(){
-  var HISTORY={"Bhavin Turakhia":"bhavin-turakhia.html","Ashish Hemrajani":"ashish-hemrajani.html"};
+  var HISTORY={"Bhavin Turakhia":"bhavin-turakhia.html","Ashish Hemrajani":"ashish-hemrajani.html","Naveen Tewari":"naveen-tewari.html"};
   var nm=document.getElementById("pn"),btn=document.getElementById("ph");
   if(!nm||!btn)return;
   function sync(){
@@ -244,6 +255,6 @@
   sync();
 })();
 </script>
-<script src="popup.js?v=4"></script>
+<script src="popup.js?v=5"></script>
 </body>
 </html>
