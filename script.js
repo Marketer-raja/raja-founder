@@ -4,7 +4,7 @@ F.forEach(function(f){if(f.tile!=null&&!f.photo)f.photo=T[f.tile].src});
 var $=function(i){return document.getElementById(i)};
 function opts(sel,key){while(sel.options.length>1)sel.remove(1);F.map(function(f){return f[key]}).filter(function(v,i,a){return a.indexOf(v)===i}).sort().forEach(function(v){var o=document.createElement("option");o.value=v;o.textContent=v;sel.appendChild(o)})}
 function fill(){opts($("fc"),"c");opts($("fi"),"ind")}fill();
-var HISTORY={"Bhavin Turakhia":"bhavin-turakhia.html","Ashish Hemrajani":"ashish-hemrajani.html","Naveen Tewari":"naveen-tewari.html"};
+var HISTORY={"Bhavin Turakhia":"bhavin-turakhia.html","Ashish Hemrajani":"ashish-hemrajani.html","Naveen Tewari":"naveen-tewari.html","Mayank Kumar":"mayank-kumar.html"};
 var PAGE=10,shown=PAGE;
 function render(reset){
   if(reset!==false)shown=PAGE;
