@@ -184,13 +184,19 @@ footer.site-footer{background:#fff;color:var(--navy);padding:56px 40px 22px;bord
 .more-btn:hover,.more-btn:focus-visible{background:var(--navy);color:#fff;outline:none}
 .more-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
 
-/* Crawlable founder list (added) */
-.plist-sec{padding-top:8px}
-.plist{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-.plist li{background:var(--paper);border:3px solid var(--navy);padding:18px 20px;display:flex;flex-direction:column;box-shadow:0 3px 10px rgba(10,26,143,.15)}
-.plist .pl-name{color:var(--navy);font-size:18px;font-weight:700}
-.plist .pl-meta{display:block;font-size:12px;color:var(--muted);margin:4px 0 10px}
-.plist p{margin:0 0 16px;font-size:13px;color:var(--text)}
-.plist .pl-btn{margin-top:auto;align-self:flex-start}
-.pl-note{font-size:13px;color:var(--muted);margin-top:18px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .plist li{border-color:#6f82ff}:root:not([data-theme="light"]) .plist .pl-name{color:#9fb0ff}}
+/* FAQ section (added) */
+.faq{padding:56px 40px;background:var(--bg)}
+.faq-in{max-width:860px;margin:0 auto}
+.faq h2{font-size:24px;margin:0 0 14px}
+.faq h2:not(:first-child){margin-top:40px}
+.faq-lead{color:var(--muted);font-size:14px;margin:0 0 14px}
+.faq details{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--navy);margin:0 0 10px;padding:0}
+.faq summary{cursor:pointer;font-weight:600;font-size:15px;padding:14px 18px;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;line-height:1;color:var(--navy);flex:none}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0;padding:0 18px 16px;font-size:14px;color:var(--text)}
+.faq a{color:var(--navy);font-weight:600}
+.faq summary:focus-visible{outline:2px solid #8fa0ff;outline-offset:-2px}
+@media (max-width:640px){.faq{padding:40px 20px}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .faq details{border-left-color:#6f82ff}:root:not([data-theme="light"]) .faq summary::after,:root:not([data-theme="light"]) .faq a{color:#9fb0ff}}
