@@ -13,8 +13,11 @@ function render(reset){
     return (!c||f.c===c)&&(!n||f.ind===n)&&(!q||(f.n+" "+f.co+" "+f.c+" "+f.ind).toLowerCase().indexOf(q)>-1)});
   box.innerHTML="";
   list.slice(0,shown).forEach(function(i){var f=F[i],b=document.createElement("button");b.className="card";b.type="button";
-    b.innerHTML='<img alt=""><div class="ci"><b></b><span></span><span></span></div>';
-    b.querySelector("img").src=f.photo;b.querySelector("b").textContent=f.n;
+  
+
+    b.innerHTML='<img><div class="ci"><b></b><span></span><span></span></div>';
+b.querySelector("img").src=f.photo;b.querySelector("img").alt=f.n;b.querySelector("b").textContent=f.n;
+                                          
     var sp=b.querySelectorAll("span");sp[0].textContent=f.co;sp[1].textContent=f.c+" · "+f.ind;
     b.addEventListener("click",function(){openP(i)});box.appendChild(b)});
   if(!list.length){var e=document.createElement("div");e.className="empty";e.textContent="No founders match your search. Clear the filters or try a different name.";box.appendChild(e)}
