@@ -186,10 +186,11 @@ footer.site-footer{background:#fff;color:var(--navy);padding:56px 40px 22px;bord
 
 /* Crawlable founder list (added) */
 .plist-sec{padding-top:8px}
-.plist{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.plist li{background:var(--paper);border:1px solid var(--line);padding:16px 18px}
-.plist a{color:var(--navy);text-decoration:none;font-size:16px}
-.plist a:hover,.plist a:focus-visible{text-decoration:underline}
-.plist .pl-meta{display:block;font-size:12px;color:var(--muted);margin:4px 0 8px}
-.plist p{margin:0;font-size:13px;color:var(--text)}
+.plist{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.plist li{background:var(--paper);border:3px solid var(--navy);padding:18px 20px;display:flex;flex-direction:column;box-shadow:0 3px 10px rgba(10,26,143,.15)}
+.plist .pl-name{color:var(--navy);font-size:18px;font-weight:700}
+.plist .pl-meta{display:block;font-size:12px;color:var(--muted);margin:4px 0 10px}
+.plist p{margin:0 0 16px;font-size:13px;color:var(--text)}
+.plist .pl-btn{margin-top:auto;align-self:flex-start}
 .pl-note{font-size:13px;color:var(--muted);margin-top:18px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .plist li{border-color:#6f82ff}:root:not([data-theme="light"]) .plist .pl-name{color:#9fb0ff}}
