@@ -1,8 +1,4 @@
 User-agent: *
-Disallow: 
-Disallow: /admin.html
-Disallow: /admin.css
-Disallow: /admin-cms.js
-Disallow: /auth.js
-Disallow: /config.js
+Disallow:
+
 Sitemap: https://rajafounder.com/sitemap.xml
