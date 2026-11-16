@@ -19,7 +19,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="robots" content="noindex,nofollow">
 <title>Admin – Raja Founder</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="admin.css?v=2">
+<link rel="stylesheet" href="admin.css?v=3">
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 </head>
@@ -90,6 +90,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="full"><label for="bio">Short description</label><textarea id="bio"></textarea></div>
     <div class="full"><label for="story">Founder story</label><textarea id="story"></textarea></div>
     <div class="full"><label for="photo">Photo <span id="photoNote">*</span></label><input id="photo" type="file" accept="image/*"><img id="preview" class="preview" alt="Photo preview"></div>
+  </div>
+
+  <div class="pagebox" id="pagebox">
+    <label class="chk"><input type="checkbox" id="mkpage" checked> <b>Create or update this founder's life-story page</b></label>
+    <p class="hint" id="pagehint">Publishing builds the page from the template and, in the same step, updates <b>script.js</b>, <b>index.html</b> (History button) and <b>sitemap.xml</b>.</p>
+    <div id="pagefields">
+      <div class="grid">
+        <div><label for="slug">Page address</label><input id="slug" placeholder="e.g. jane-doe" autocomplete="off"><div class="hint" id="slugprev"></div></div>
+        <div><label for="born">Born (optional)</label><input id="born" placeholder="e.g. 5 March 1985, Pune"></div>
+        <div class="full"><label for="known">Known for (optional, defaults to the company)</label><input id="known" placeholder="e.g. Acme Labs, Acme Pay"></div>
+        <div class="full">
+          <label for="psrc">Page content</label>
+          <textarea id="psrc" class="tall" spellcheck="true" placeholder="## Early life&#10;Write the section text here. Leave a blank line between paragraphs."></textarea>
+          <div class="row tight"><button type="button" class="sec" id="btnExample">Insert example layout</button><button type="button" class="sec" id="btnPreview">Preview page</button><span id="pstatus" role="status"></span></div>
+          <details class="fmt"><summary>How to format the page content</summary>
+<pre>## Heading            starts a new section
+Plain lines            become paragraphs (blank line between them)
+- item                 makes a bullet list
+[words](https://..)    makes a link      **words**  makes bold
+
+## Timeline            special: one line per event
+2014 | Launches the company
+
+## The takeaway       special: shown in the highlighted box
+## Sources            special: small print at the bottom, after the button</pre>
+          </details>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="row"><button id="btnSave" type="button">Publish founder</button><button id="btnCancel" class="sec" type="button" hidden>Cancel edit</button><span id="status" role="status"></span></div>
 </section>
@@ -181,6 +210,8 @@ setTimeout(function(){
   if(m){m.className="err";m.textContent="The login script did not start. Make sure auth.js and config.js are uploaded to the same folder as admin.html, then hard-refresh with Ctrl+F5.";}
 },2500);
 </script>
+<script src="founder-pages.js?v=1"></script>
+<script src="founder-publish.js?v=1"></script>
 <script src="auth.js"></script>
 </body>
 </html>
