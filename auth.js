@@ -23,7 +23,7 @@
     $("login").hidden=true;$("app").hidden=false;$("logout").hidden=false;
     ["click","keydown"].forEach(function(ev){document.addEventListener(ev,function(){last=Date.now()})});
     setInterval(function(){if(Date.now()-last>IDLE_MS)logout()},15000);
-    ["admin.js?v=3","admin-cms.js"].forEach(function(src){var s=document.createElement("script");s.src=src;document.body.appendChild(s)});
+    ["admin.js?v=4","admin-cms.js"].forEach(function(src){var s=document.createElement("script");s.src=src;document.body.appendChild(s)});
   }
   function logout(){sb.auth.signOut().then(function(){location.reload()})}
   $("logout").onclick=logout;

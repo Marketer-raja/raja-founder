@@ -19,7 +19,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="robots" content="noindex,nofollow">
 <title>Admin – Raja Founder</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="admin.css?v=3">
+<link rel="stylesheet" href="admin.css?v=4">
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 </head>
@@ -93,30 +93,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <div class="pagebox" id="pagebox">
-    <label class="chk"><input type="checkbox" id="mkpage" checked> <b>Create or update this founder's life-story page</b></label>
-    <p class="hint" id="pagehint">Publishing builds the page from the template and, in the same step, updates <b>script.js</b>, <b>index.html</b> (History button) and <b>sitemap.xml</b>.</p>
+    <label class="chk"><input type="checkbox" id="mkpage" checked> <b>History page &amp; History button</b></label>
+    <p class="hint" id="pagehint">Upload the ready-made page you created for this founder (.html). It is saved exactly as it is, and the <b>History</b> button in the home-page pop-up links to it. <b>script.js</b>, <b>index.html</b> and <b>sitemap.xml</b> are updated automatically.</p>
     <div id="pagefields">
       <div class="grid">
-        <div><label for="slug">Page address</label><input id="slug" placeholder="e.g. jane-doe" autocomplete="off"><div class="hint" id="slugprev"></div></div>
-        <div><label for="born">Born (optional)</label><input id="born" placeholder="e.g. 5 March 1985, Pune"></div>
-        <div class="full"><label for="known">Known for (optional, defaults to the company)</label><input id="known" placeholder="e.g. Acme Labs, Acme Pay"></div>
         <div class="full">
-          <label for="psrc">Page content</label>
-          <textarea id="psrc" class="tall" spellcheck="true" placeholder="## Early life&#10;Write the section text here. Leave a blank line between paragraphs."></textarea>
-          <div class="row tight"><button type="button" class="sec" id="btnExample">Insert example layout</button><button type="button" class="sec" id="btnPreview">Preview page</button><span id="pstatus" role="status"></span></div>
-          <details class="fmt"><summary>How to format the page content</summary>
-<pre>## Heading            starts a new section
-Plain lines            become paragraphs (blank line between them)
-- item                 makes a bullet list
-[words](https://..)    makes a link      **words**  makes bold
-
-## Timeline            special: one line per event
-2014 | Launches the company
-
-## The takeaway       special: shown in the highlighted box
-## Sources            special: small print at the bottom, after the button</pre>
-          </details>
+          <label for="pfile">History page file (.html)</label>
+          <input id="pfile" type="file" accept=".html,.htm,text/html">
+          <div class="hint" id="pfileinfo"></div>
         </div>
+        <div><label for="slug">Page address</label><input id="slug" placeholder="e.g. jane-doe" autocomplete="off"><div class="hint" id="slugprev"></div></div>
+        <div>
+          <label for="hlabel">History button text</label><input id="hlabel" maxlength="30" placeholder="History" autocomplete="off">
+          <div class="hint">Shown in the pop-up: <span class="histprev" id="hprev">History</span></div>
+        </div>
+        <div class="full"><div class="row tight"><button type="button" class="sec" id="btnPreview">Preview page</button><span id="pstatus" role="status"></span></div></div>
       </div>
     </div>
   </div>
@@ -210,8 +201,8 @@ setTimeout(function(){
   if(m){m.className="err";m.textContent="The login script did not start. Make sure auth.js and config.js are uploaded to the same folder as admin.html, then hard-refresh with Ctrl+F5.";}
 },2500);
 </script>
-<script src="founder-pages.js?v=1"></script>
-<script src="founder-publish.js?v=1"></script>
+<script src="founder-pages.js?v=2"></script>
+<script src="founder-publish.js?v=2"></script>
 <script src="auth.js"></script>
 </body>
 </html>

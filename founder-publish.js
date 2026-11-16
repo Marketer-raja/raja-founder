@@ -2,7 +2,7 @@
    FOUNDER PUBLISHING (used by the admin panel)
    Talks to the GitHub API with the token you saved in the admin panel.
    Every publish is ONE commit that contains all of:
-     founders.json, <name>.html (life-story page), page-src/<name>.json (editable copy of the page text),
+     founders.json, <name>.html (the ready-made History page uploaded in the admin panel, saved as is),
      script.js + index.html (History button list), sitemap.xml, and the photo.
    Either everything is published or nothing is.
    ============================================================ */
@@ -132,6 +132,8 @@
         bio: o.bio, story: o.story, photo: photo, web: o.web, li: o.li
       });
 
+      if (typeof page.label === "string") { if (page.label.trim()) rec.historyLabel = page.label.trim().slice(0, 30); else delete rec.historyLabel; }
+
       var js = await readText("script.js", base.sha);
       var idx = await readText("index.html", base.sha);
       if (js === null || idx === null) throw fail("script.js or index.html was not found in the repository.");
@@ -151,10 +153,9 @@
             await exists(file, base.sha);
           if (taken) throw fail("A page called " + file + " already exists. Choose a different page address.");
         }
-        var tpl = await readText("founder-template.html", base.sha);
-        if (tpl === null) throw fail("founder-template.html is missing from the repository. Upload it next to index.html first.");
-        changes.push({ path: file, text: P.buildPage(tpl, rec, { slug: slug, born: page.born, known: page.known, source: page.source, date: date }) });
-        changes.push({ path: "page-src/" + slug + ".json", text: JSON.stringify({ born: page.born || "", known: page.known || "", source: page.source || "" }, null, 2) });
+        if (typeof page.html !== "string" || !/<html[\s>]|<!doctype\s+html/i.test(page.html)) throw fail("The History page file is missing or is not a web page (.html).");
+        /* the uploaded page is saved exactly as it was made; nothing is rewritten */
+        changes.push({ path: file, text: page.html });
         rec.history = file; rec.pageAuto = true;
         js = P.updateHistory(js, rec.n, file, cur && cur.n);
         idx = P.updateHistory(idx, rec.n, file, cur && cur.n);

@@ -1,6 +1,6 @@
 (function(){
 var $=function(i){return document.getElementById(i)};
-var K="rf_admin",cfg={},F=[],HM={},editing=null,photoData=null,slugTouched=false;
+var K="rf_admin",cfg={},F=[],HM={},editing=null,photoData=null,slugTouched=false,pageHtml=null,curFile=null;
 var P=window.RFPages;
 
 /* The page/publish helpers normally load from admin.html. If they did not (file not uploaded,
@@ -8,8 +8,8 @@ var P=window.RFPages;
 function loadScript(src){return new Promise(function(res,rej){var s=document.createElement("script");s.src=src;s.onload=res;s.onerror=function(){rej(new Error(src))};document.head.appendChild(s)})}
 function ensureLibs(){
   var p=Promise.resolve();
-  if(!window.RFPages)p=p.then(function(){return loadScript("founder-pages.js?v=1")});
-  if(!window.RFPublish)p=p.then(function(){return loadScript("founder-publish.js?v=1")});
+  if(!window.RFPages)p=p.then(function(){return loadScript("founder-pages.js?v=2")});
+  if(!window.RFPublish)p=p.then(function(){return loadScript("founder-publish.js?v=2")});
   return p.then(function(){P=window.RFPages;if(!window.RFPages||!window.RFPublish)throw new Error("founder-pages.js")}).catch(function(e){
     var x=new Error("Could not load "+String(e.message).split("?")[0]+". Upload founder-pages.js and founder-publish.js to the same folder as admin.html on GitHub, wait a minute, then reload this page with Ctrl+F5.");
     x.friendly=true;throw x;
@@ -64,47 +64,56 @@ $("photo").onchange=function(){
   resize(f).then(function(d){photoData=d;$("preview").src=d;$("preview").style.display="block"}).catch(function(){say("status","That photo could not be read. Try a JPG or PNG.","err")});
 };
 
-/* ---------- life-story page fields ---------- */
+/* ---------- History page (uploaded, ready-made .html file) ---------- */
 function slugPreview(){var s=$("slug").value.trim();$("slugprev").textContent=s?"https://rajafounder.com/"+s+".html":""}
 function togglePage(){$("pagefields").hidden=!$("mkpage").checked}
+function labelPreview(){$("hprev").textContent=$("hlabel").value.trim()||"History"}
 $("mkpage").onchange=togglePage;
+$("hlabel").oninput=labelPreview;
 $("slug").oninput=function(){slugTouched=true;this.value=this.value.toLowerCase().replace(/[^a-z0-9-]/g,"-");slugPreview()};
-$("n").oninput=function(){if(!slugTouched&&!editing){$("slug").value=P.slugify(this.value);slugPreview()}};
-$("btnExample").onclick=function(){
-  if($("psrc").value.trim()&&!confirm("Replace the current page content with the example layout?"))return;
-  $("psrc").value=P.EXAMPLE;
+$("n").oninput=function(){if(!slugTouched&&!editing&&!pageHtml){$("slug").value=P.slugify(this.value);slugPreview()}};
+
+$("pfile").onchange=function(){
+  var inp=this,f=inp.files[0];pageHtml=null;$("pfileinfo").textContent="";say("pstatus","");
+  if(!f)return;
+  if(!/\.html?$/i.test(f.name)){say("pstatus","Please choose an .html file.","err");inp.value="";return}
+  if(f.size>2*1024*1024){say("pstatus","That file is larger than 2 MB. Please use a smaller page.","err");inp.value="";return}
+  f.text().then(function(t){
+    if(!/<html[\s>]/i.test(t)&&!/<!doctype\s+html/i.test(t)){say("pstatus","That file does not look like a web page (.html).","err");inp.value="";return}
+    pageHtml=t;
+    $("pfileinfo").textContent=f.name+" ("+Math.max(1,Math.round(f.size/1024))+" KB) is ready to publish.";
+    /* page address: taken from the file name, unless this founder already has a page address */
+    if(!curFile&&!slugTouched){var s=P.slugify(f.name.replace(/\.html?$/i,""));if(s){$("slug").value=s;slugPreview()}}
+  }).catch(function(){say("pstatus","That file could not be read.","err");inp.value=""});
 };
 
-function pageInputs(){return{make:$("mkpage").checked,slug:$("slug").value.trim(),born:$("born").value.trim(),known:$("known").value.trim(),source:$("psrc").value}}
+function pageInputs(){return{make:$("mkpage").checked&&!!pageHtml,wants:$("mkpage").checked,slug:$("slug").value.trim(),html:pageHtml,label:$("hlabel").value.trim()}}
 
-/* Preview: opens the finished page in a new tab without publishing anything */
+/* Preview: shows the uploaded file (or the live page) in a new tab. Nothing is published. */
 $("btnPreview").onclick=function(){
-  var o={};FIELDS.forEach(function(k){o[k]=$(k).value.trim()});
-  var pg=pageInputs();
-  if(!o.n||!o.bio){say("pstatus","Enter the name and short description first.","err");return}
-  var w=window.open("","_blank");
+  if(!pageHtml){
+    if(curFile){window.open("https://rajafounder.com/"+curFile,"_blank","noopener");return}
+    say("pstatus","Choose the page file first.","err");return;
+  }
+  var html=pageHtml.replace(/<script[\s\S]*?<\/script>/gi,"");
+  html=/<head[^>]*>/i.test(html)?html.replace(/<head[^>]*>/i,function(m){return m+'<base href="https://rajafounder.com/">'}):'<base href="https://rajafounder.com/">'+html;
+  var url=URL.createObjectURL(new Blob([html],{type:"text/html"}));
+  var w=window.open(url,"_blank");
   if(!w){say("pstatus","Allow pop-ups for this page to see the preview.","err");return}
-  w.document.write("<p style='font-family:sans-serif'>Building preview…</p>");
-  say("pstatus","Building preview…");
-  pub().getTemplate().then(function(tpl){
-    var cur=editing?F.filter(function(f){return f.id===editing})[0]:null;
-    var rec={n:o.n,co:o.co,c:o.c,ind:o.ind,role:o.role||"Founder",bio:o.bio,photo:photoData?"photos/preview-photo.jpg":(cur&&cur.photo)||"hero-1.jpg"};
-    var html=P.buildPage(tpl,rec,{slug:pg.slug||P.slugify(o.n)||"preview",born:pg.born,known:pg.known,source:pg.source});
-    if(photoData)html=html.split('src="photos/preview-photo.jpg"').join('src="'+photoData+'"');
-    html=html.replace(/<script[\s\S]*?<\/script>/g,"").replace("<head>",'<head><base href="https://rajafounder.com/">');
-    w.document.open();w.document.write(html);w.document.close();
-    say("pstatus","Preview opened in a new tab. Nothing has been published.","ok");
-  }).catch(function(e){w.close();say("pstatus",errText(e),"err")});
+  setTimeout(function(){URL.revokeObjectURL(url)},60000);
+  say("pstatus","Preview opened in a new tab. Nothing has been published.","ok");
 };
 
 /* ---------- form ---------- */
 var FIELDS=["n","co","c","ind","yr","role","web","li","bio","story"];
+var HINT_NEW="Upload the ready-made page you created for this founder (.html). It is saved exactly as it is, and the <b>History</b> button in the home-page pop-up links to it. <b>script.js</b>, <b>index.html</b> and <b>sitemap.xml</b> are updated automatically.";
 function resetForm(){
-  editing=null;photoData=null;slugTouched=false;
-  FIELDS.concat(["slug","born","known","psrc"]).forEach(function(k){$(k).value=""});
-  $("photo").value="";$("preview").style.display="none";$("mkpage").checked=true;togglePage();slugPreview();
+  editing=null;photoData=null;slugTouched=false;pageHtml=null;curFile=null;
+  FIELDS.concat(["slug","hlabel"]).forEach(function(k){$(k).value=""});
+  $("slug").disabled=false;$("pfile").value="";$("pfileinfo").textContent="";
+  $("photo").value="";$("preview").style.display="none";$("mkpage").checked=true;togglePage();slugPreview();labelPreview();
   $("formTitle").textContent="2. Add a new founder";$("btnSave").textContent="Publish founder";$("btnCancel").hidden=true;$("photoNote").textContent="*";
-  $("pagehint").innerHTML="Publishing builds the page from the template and, in the same step, updates <b>script.js</b>, <b>index.html</b> (History button) and <b>sitemap.xml</b>.";
+  $("pagehint").innerHTML=HINT_NEW;
   say("pstatus","");
 }
 $("btnCancel").onclick=function(){resetForm();say("status","")};
@@ -118,9 +127,10 @@ $("btnSave").onclick=function(){
   var cur=editing?F.filter(function(f){return f.id===editing})[0]:null;
   if(!cur&&!photoData){say("status","Choose a photo for the new founder.","err");return}
   if(pg.make){
-    if(!o.bio){say("status","Add a short description. It is used as the intro of the page.","err");return}
     if(!P.validSlug(pg.slug)){say("status","Page address: use lowercase letters, numbers and hyphens only (for example jane-doe).","err");return}
-    if(!pg.source.trim()){say("status","Add some page content, or untick the life-story page box.","err");return}
+    if(curFile&&!confirm("This replaces the current History page ("+curFile+") with the file you chose. Continue?"))return;
+  }else if(pg.wants&&!curFile&&!pageHtml&&pg.label){
+    /* nothing to link yet: label alone is saved but no button appears until a page exists */
   }
   var btn=$("btnSave");btn.disabled=true;say("status","Publishing…");
   pub().publish(o,{editingId:editing,photoData:photoData,page:pg}).then(function(r){
@@ -128,60 +138,54 @@ $("btnSave").onclick=function(){
     return pub().historyMap().then(function(m){HM=m},function(){});
   }).then(function(){
     var had=pg.make;resetForm();renderList();
-    say("status",had?"Published. Founder, page, script.js, index.html and sitemap.xml were updated in one step. The live site updates in about a minute.":"Published. The live site updates in about a minute.","ok");
+    say("status",had?"Published. Founder, History page, History button, script.js, index.html and sitemap.xml were updated in one step. The live site updates in about a minute.":"Published. The live site updates in about a minute.","ok");
   }).catch(function(e){say("status",errText(e),"err")}).then(function(){btn.disabled=false});
 };
 
 /* ---------- list ---------- */
-function startEdit(f){
-  editing=f.id;photoData=null;slugTouched=true;
+function startEdit(f,toHistory){
+  editing=f.id;photoData=null;slugTouched=true;pageHtml=null;
   FIELDS.forEach(function(k){$(k).value=f[k]==null?"":f[k]});
-  ["slug","born","known","psrc"].forEach(function(k){$(k).value=""});
+  $("hlabel").value=f.historyLabel||"";labelPreview();
+  $("pfile").value="";$("pfileinfo").textContent="";
   $("photo").value="";$("preview").style.display="none";$("photoNote").textContent="(leave empty to keep current photo)";
   $("formTitle").textContent="Edit founder";$("btnSave").textContent="Save changes";$("btnCancel").hidden=false;say("pstatus","");
-  var file=f.history||HM[f.n]||null;
-  if(file&&f.pageAuto){
-    var slug=file.replace(/\.html$/,"");
-    $("mkpage").checked=true;$("slug").value=slug;
-    $("pagehint").textContent="This page was created here ("+file+"). Saving rebuilds it from the content below.";
-    say("pstatus","Loading page content…");
-    pub().readPageSource(slug).then(function(s){
-      if(editing!==f.id)return;
-      if(s){$("born").value=s.born||"";$("known").value=s.known||"";$("psrc").value=s.source||"";say("pstatus","")}
-      else say("pstatus","The saved page text was not found. Paste the content again before saving.","err");
-    }).catch(function(e){say("pstatus",errText(e),"err")});
-  }else if(file){
-    $("mkpage").checked=false;$("slug").value=file.replace(/\.html$/,"");
-    $("pagehint").innerHTML="This founder already has a hand-made page (<b>"+P.esc(file)+"</b>). It stays exactly as it is unless you tick the box, which replaces it with a page built from the content below.";
+  var file=f.history||HM[f.n]||null;curFile=file;
+  if(file){
+    $("slug").value=file.replace(/\.html$/,"");$("slug").disabled=true;$("mkpage").checked=true;
+    $("pagehint").innerHTML="Current History page: <b>"+P.esc(file)+"</b>. It stays exactly as it is. To replace it, choose a new .html file below (it is saved under the same address).";
   }else{
-    $("mkpage").checked=true;$("slug").value=P.slugify(f.n);
-    $("pagehint").textContent="This founder has no life-story page yet. Fill in the content below to create one.";
+    $("slug").value=P.slugify(f.n);$("slug").disabled=false;$("mkpage").checked=false;slugTouched=false;
+    $("pagehint").innerHTML="This founder has no History page yet. Tick the box and upload the ready-made page to add the History button.";
   }
   togglePage();slugPreview();
-  $("formCard").scrollIntoView({behavior:"smooth"});
+  (toHistory?$("pagebox"):$("formCard")).scrollIntoView({behavior:"smooth"});
+  if(toHistory&&!file)$("mkpage").checked=true,togglePage();
 }
 
 function renderList(){
   var box=$("list");box.innerHTML="";$("count").textContent=F.length;
   F.forEach(function(f){
     var d=document.createElement("div");d.className="item";
-    d.innerHTML='<img alt=""><span></span><button class="sec" type="button">Edit</button><button class="del" type="button">Delete</button>';
+    d.innerHTML='<img alt=""><span></span><button class="sec" type="button">Edit</button><button class="sec" type="button">History</button><button class="del" type="button">Delete</button>';
     d.querySelector("img").src="https://raw.githubusercontent.com/"+cfg.owner+"/"+cfg.repo+"/"+cfg.branch+"/"+f.photo+"?t="+Date.now();
     var sp=d.querySelector("span");sp.textContent=f.n+" – "+f.co+", "+f.c;
     var file=f.history||HM[f.n];
     if(file){var a=document.createElement("a");a.className="tag";a.textContent="page";a.href="https://rajafounder.com/"+file;a.target="_blank";a.rel="noopener";sp.appendChild(a)}
     var b=d.querySelectorAll("button");
     b[0].onclick=function(){startEdit(f)};
-    b[1].onclick=function(){
-      if(b[1].textContent!=="Confirm delete"){b[1].textContent="Confirm delete";return}
-      b[1].disabled=true;say("status","Deleting…");
+    b[1].textContent=file?"History":"+ History";
+    b[1].onclick=function(){startEdit(f,true)};
+    b[2].onclick=function(){
+      if(b[2].textContent!=="Confirm delete"){b[2].textContent="Confirm delete";return}
+      b[2].disabled=true;say("status","Deleting…");
       pub().remove(f.id).then(function(r){
         F=r.list;delete HM[f.n];renderList();
         say("status","Deleted"+(r.keptPage?" (the hand-made page "+r.keptPage+" was kept)":"")+". The live site updates in about a minute.","ok");
-      }).catch(function(e){b[1].disabled=false;say("status",errText(e),"err")});
+      }).catch(function(e){b[2].disabled=false;say("status",errText(e),"err")});
     };
     box.appendChild(d);
   });
 }
-togglePage();
+togglePage();labelPreview();
 })();
