@@ -3,6 +3,19 @@ var $=function(i){return document.getElementById(i)};
 var K="rf_admin",cfg={},F=[],HM={},editing=null,photoData=null,slugTouched=false;
 var P=window.RFPages;
 
+/* The page/publish helpers normally load from admin.html. If they did not (file not uploaded,
+   or an old admin.html is cached) load them here, or say clearly what is missing. */
+function loadScript(src){return new Promise(function(res,rej){var s=document.createElement("script");s.src=src;s.onload=res;s.onerror=function(){rej(new Error(src))};document.head.appendChild(s)})}
+function ensureLibs(){
+  var p=Promise.resolve();
+  if(!window.RFPages)p=p.then(function(){return loadScript("founder-pages.js?v=1")});
+  if(!window.RFPublish)p=p.then(function(){return loadScript("founder-publish.js?v=1")});
+  return p.then(function(){P=window.RFPages;if(!window.RFPages||!window.RFPublish)throw new Error("founder-pages.js")}).catch(function(e){
+    var x=new Error("Could not load "+String(e.message).split("?")[0]+". Upload founder-pages.js and founder-publish.js to the same folder as admin.html on GitHub, wait a minute, then reload this page with Ctrl+F5.");
+    x.friendly=true;throw x;
+  });
+}
+
 /* ---------- settings ---------- */
 try{cfg=JSON.parse(localStorage.getItem(K)||"{}")}catch(e){}
 ["owner","repo","branch","token"].forEach(function(k){if(cfg[k])$(k).value=cfg[k]});
@@ -26,7 +39,7 @@ $("btnConnect").onclick=function(){
   cfg={owner:$("owner").value.trim(),repo:$("repo").value.trim(),branch:$("branch").value.trim()||"main",token:$("token").value.trim()};
   if(!cfg.owner||!cfg.repo||!cfg.token){say("cstatus","Enter username, repository and token.","err");return}
   say("cstatus","Connecting…");
-  refresh().then(function(){
+  ensureLibs().then(refresh).then(function(){
     try{localStorage.setItem(K,JSON.stringify(cfg))}catch(e){}
     say("cstatus","Connected. "+F.length+" founders loaded.","ok");
     $("formCard").hidden=false;$("listCard").hidden=false;renderList();
