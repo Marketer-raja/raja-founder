@@ -65,3 +65,13 @@ select{width:100%;padding:10px;border:1px solid var(--line);font:inherit;font-si
 .savebar{position:sticky;bottom:0;background:var(--bg);padding:12px 0;margin-top:0}
 .empty{color:var(--muted);font-size:14px;padding:8px 0}
 @media(max-width:720px){.erow{grid-template-columns:56px 1fr}.erow .btns{grid-column:1/-1}.erow .fields{grid-template-columns:1fr 1fr}.erow.reg{grid-template-columns:1fr}}
+
+/* life-story page section */
+.pagebox{margin-top:22px;padding:18px;border:1px solid var(--line);border-left:4px solid var(--navy,#0a1d8f);background:#fafaff}
+.pagebox .chk{margin-bottom:6px}
+textarea.tall{min-height:340px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.55}
+.fmt{margin-top:6px;font-size:13px}.fmt summary{cursor:pointer;color:var(--navy,#0a1d8f);font-weight:600}
+.fmt pre{background:#fff;border:1px solid var(--line);padding:12px;overflow:auto;font-size:12px;line-height:1.6;margin:8px 0 0}
+#slugprev{margin:4px 0 0;word-break:break-all}
+.item .tag{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:1px 6px;margin-left:6px;white-space:nowrap}
+.item a.tag{text-decoration:none;color:var(--navy,#0a1d8f)}
